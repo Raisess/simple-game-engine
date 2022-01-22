@@ -1,7 +1,7 @@
 CC=g++
 
 FLAGS=-w
-LINKER_FLAGS=
+LINKER_FLAGS=-lSDL2 -lGL -lX11 -ldl -lpthread -lrt
 
 SRC_DIR=./src
 FILES=$(SRC_DIR)/main.cpp \

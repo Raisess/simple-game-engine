@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SDL2/SDL.h>
+
 typedef struct {
   int width;
   int height;
@@ -11,15 +13,15 @@ class Window {
   private:
     ~Window();
 
-    int sdl_window;
-    bool is_active = false;
-    int current_event;
+    SDL_Window* sdl_window;
+    SDL_Event current_event;
     WindowSize window_size;
+    bool is_active = false;
 
     int pool_event();
 
   public:
-    Window(int width, int height);
+    Window(const char* window_name, const int width, const int height);
 
     void event_loop(void (*callback)(Engine::Window* window));
     void quit() {
