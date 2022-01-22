@@ -14,6 +14,7 @@ class Window {
     ~Window();
 
     SDL_Window* sdl_window;
+    SDL_Renderer* sdl_renderer;
     SDL_Event current_event;
     WindowSize window_size;
     bool is_active = false;

@@ -13,6 +13,11 @@ Engine::Window::Window(const char* window_name, const int width, const int heigh
     this->window_size.height,
     SDL_WINDOW_SHOWN
   );
+  this->sdl_renderer = SDL_CreateRenderer(this->sdl_window, -1, 0);
+
+  SDL_SetRenderDrawColor(this->sdl_renderer, 0, 255, 0, 255);
+  SDL_RenderClear(this->sdl_renderer);
+  SDL_RenderPresent(this->sdl_renderer);
 }
 
 Engine::Window::~Window() {
