@@ -24,6 +24,7 @@ class Window {
   public:
     Window(const char* window_name, const int width, const int height);
 
+    void set_backgroud_color(const int red, const int green, const int blue, const int alpha);
     void event_loop(void (*callback)(Engine::Window* window));
     void quit() {
       Engine::Window::~Window();

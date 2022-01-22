@@ -14,21 +14,24 @@ Engine::Window::Window(const char* window_name, const int width, const int heigh
     SDL_WINDOW_SHOWN
   );
   this->sdl_renderer = SDL_CreateRenderer(this->sdl_window, -1, 0);
-
-  SDL_SetRenderDrawColor(this->sdl_renderer, 0, 255, 0, 255);
-  SDL_RenderClear(this->sdl_renderer);
-  SDL_RenderPresent(this->sdl_renderer);
 }
 
 Engine::Window::~Window() {
   this->is_active = false;
 
+  SDL_DestroyRenderer(this->sdl_renderer);
   SDL_DestroyWindow(this->sdl_window);
   SDL_Quit();
 }
 
 int Engine::Window::pool_event() {
   return SDL_PollEvent(&this->current_event);
+}
+
+void Engine::Window::set_backgroud_color(const int red, const int green, const int blue, const int alpha) {
+  SDL_RenderClear(this->sdl_renderer);
+  SDL_SetRenderDrawColor(this->sdl_renderer, red, green, blue, alpha);
+  SDL_RenderPresent(this->sdl_renderer);
 }
 
 void Engine::Window::event_loop(void (*callback)(Engine::Window* window)) {
