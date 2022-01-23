@@ -29,6 +29,8 @@ int Engine::Window::pool_event() {
 }
 
 void Engine::Window::set_backgroud_color(const int red, const int green, const int blue) {
+  this->window_bg_color = { red, green, blue };
+
   SDL_SetRenderDrawColor(this->sdl_renderer, red, green, blue, 0);
   SDL_RenderClear(this->sdl_renderer);
   SDL_RenderPresent(this->sdl_renderer);
