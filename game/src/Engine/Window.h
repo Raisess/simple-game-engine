@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <SDL2/SDL.h>
 
 typedef struct {
@@ -14,18 +15,22 @@ class Window {
     ~Window();
 
     SDL_Window* sdl_window;
-    SDL_Renderer* sdl_renderer;
     SDL_Event current_event;
     WindowSize window_size;
     bool is_active = false;
 
     int pool_event();
+    void update() {
+      this->set_backgroud_color(0, 0, 0);
+    }
 
   public:
+    SDL_Renderer* sdl_renderer;
+
     Window(const char* window_name, const int width, const int height);
 
-    void set_backgroud_color(const int red, const int green, const int blue, const int alpha);
-    void event_loop(void (*callback)(Engine::Window* window));
+    void set_backgroud_color(const int red, const int green, const int blue);
+    void event_loop(const std::function<void(void)> callback);
     void quit() {
       Engine::Window::~Window();
     }
