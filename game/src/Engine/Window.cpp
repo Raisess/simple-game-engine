@@ -5,6 +5,7 @@ Engine::Window::Window(const char* window_name, const int width, const int heigh
   this->window_size.width = width;
   this->window_size.height = height;
 
+  SDL_Init(SDL_INIT_VIDEO);
   this->sdl_window = SDL_CreateWindow(
     window_name,
     SDL_WINDOWPOS_UNDEFINED,
@@ -29,8 +30,8 @@ int Engine::Window::pool_event() {
 }
 
 void Engine::Window::set_backgroud_color(const int red, const int green, const int blue, const int alpha) {
-  SDL_RenderClear(this->sdl_renderer);
   SDL_SetRenderDrawColor(this->sdl_renderer, red, green, blue, alpha);
+  SDL_RenderClear(this->sdl_renderer);
   SDL_RenderPresent(this->sdl_renderer);
 }
 

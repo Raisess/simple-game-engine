@@ -11,7 +11,6 @@ int main(int argc, char** argv) {
 
     if (key[SDL_SCANCODE_RETURN]) {
       std::cout << "Return" << std::endl;
-      win->set_backgroud_color(255, 0, 0, 0);
     }
   });
 
