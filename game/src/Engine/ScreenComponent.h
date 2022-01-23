@@ -21,11 +21,12 @@ class ScreenComponent {
     SDL_Rect rect;
     Position position;
     Size size;
+    bool fill;
 
     void draw_rect();
 
   public:
-    ScreenComponent(Window* window, const int x, const int y, const int width, const int heigth);
+    ScreenComponent(Window* window, const int x, const int y, const int width, const int heigth, bool fill);
     ~ScreenComponent();
 
     Position get_position() {
