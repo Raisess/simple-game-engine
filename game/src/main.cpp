@@ -5,12 +5,12 @@
 
 int main(int argc, char** argv) {
   auto* window = new Engine::Window("DwarfAttack", 640, 480);
-  window->set_backgroud_color(0, 255, 0);
+  window->set_backgroud_color(0, 0, 255);
 
   auto* some_component = new Engine::ScreenComponent(window, 0, 0, 100, 100, true);
-  some_component->set_color(0, 0, 255);
+  some_component->set_color(255, 0, 0);
   auto* floor_component = new Engine::ScreenComponent(window, 0, 440, 640, 40, true);
-  floor_component->set_color(255, 0, 0);
+  floor_component->set_color(0, 255, 0);
   
   const auto callback = [window, some_component, floor_component]() -> void {
     auto key = Engine::Keyboard::key();
@@ -26,8 +26,9 @@ int main(int argc, char** argv) {
       some_component->set_position(some_component_pos.x, some_component_pos.y + 10);
     }
 
+    window->update();
+    floor_component->update();
     some_component->update();
-    // floor_component->update();
   };
 
   window->event_loop(callback);

@@ -2,15 +2,15 @@
 
 Engine::Window::Window(const char* window_name, const int width, const int height) {
   this->is_active = true;
-  this->window_size = { width, height };
+  this->size = { width, height };
 
   SDL_Init(SDL_INIT_VIDEO);
   this->sdl_window = SDL_CreateWindow(
     window_name,
     SDL_WINDOWPOS_UNDEFINED,
     SDL_WINDOWPOS_UNDEFINED,
-    this->window_size.width,
-    this->window_size.height,
+    this->size.width,
+    this->size.height,
     SDL_WINDOW_SHOWN
   );
   this->sdl_renderer = SDL_CreateRenderer(this->sdl_window, -1, SDL_RENDERER_ACCELERATED);
@@ -28,12 +28,8 @@ int Engine::Window::pool_event() {
   return SDL_PollEvent(&this->current_event);
 }
 
-void Engine::Window::set_backgroud_color(const int red, const int green, const int blue) {
-  this->window_bg_color = { red, green, blue };
-
-  SDL_SetRenderDrawColor(this->sdl_renderer, red, green, blue, 0);
-  SDL_RenderClear(this->sdl_renderer);
-  SDL_RenderPresent(this->sdl_renderer);
+void Engine::Window::draw_background() {
+  SDL_SetRenderDrawColor(this->sdl_renderer, this->color.red, this->color.green, this->color.blue, 0);
 }
 
 void Engine::Window::event_loop(const std::function<void(void)> callback) {
@@ -43,8 +39,9 @@ void Engine::Window::event_loop(const std::function<void(void)> callback) {
         this->quit();
       }
 
-      this->update();
+      SDL_RenderClear(this->sdl_renderer);
       callback();
+      SDL_RenderPresent(this->sdl_renderer);
     }
   }
 }

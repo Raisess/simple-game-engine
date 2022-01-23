@@ -20,24 +20,27 @@ class Window {
   private:
     ~Window();
 
-    SDL_Window* sdl_window;
     SDL_Event current_event;
-    Size window_size;
-    Color window_bg_color;
+    Size size;
+    Color color;
     bool is_active = false;
 
     int pool_event();
-    void update() {
-      this->set_backgroud_color(this->window_bg_color.red, this->window_bg_color.green, this->window_bg_color.blue);
-    }
+    void draw_background();
 
   public:
+    SDL_Window* sdl_window;
     SDL_Renderer* sdl_renderer;
 
     Window(const char* window_name, const int width, const int height);
 
-    void set_backgroud_color(const int red, const int green, const int blue);
     void event_loop(const std::function<void(void)> callback);
+    void set_backgroud_color(const int red, const int green, const int blue) {
+      this->color = { red, green, blue };
+    }
+    void update() {
+      this->draw_background();
+    }
     void quit() {
       Engine::Window::~Window();
     }
