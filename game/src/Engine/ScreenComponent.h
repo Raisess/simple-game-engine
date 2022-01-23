@@ -13,6 +13,12 @@ typedef struct {
   int heigth;
 } Size;
 
+typedef struct {
+  int red;
+  int green;
+  int blue;
+} Color;
+
 namespace Engine {
 
 class ScreenComponent {
@@ -21,6 +27,7 @@ class ScreenComponent {
     SDL_Rect rect;
     Position position;
     Size size;
+    Color color;
     bool fill;
 
     void draw_rect();
@@ -32,11 +39,21 @@ class ScreenComponent {
     Position get_position() {
       return this->position;
     }
-    void update_pos(const int x, const int y);
+    void update_pos(const int x, const int y) {
+      this->position = { x, y };
+    }
     Size get_size() {
       return this->size;
     }
-    void update_size(const int width, const int heigth);
+    void update_size(const int width, const int heigth) {
+      this->size = { width, heigth };
+    }
+    Color get_color() {
+      return this->color;
+    }
+    void update_color(const int red, const int green, const int blue) {
+      this->color = { red, green, blue };
+    }
     void update() {
       this->draw_rect();
     }

@@ -17,18 +17,10 @@ void Engine::ScreenComponent::draw_rect() {
     this->size.heigth
   };
 
-  SDL_SetRenderDrawColor(this->window_renderer, 255, 0, 0, 255);
+  SDL_SetRenderDrawColor(this->window_renderer, this->color.red, this->color.green, this->color.blue, 255);
   if (this->fill) {
     SDL_RenderFillRect(this->window_renderer, &this->rect);
   }
   SDL_RenderDrawRect(this->window_renderer, &this->rect);
   SDL_RenderPresent(this->window_renderer);
-}
-
-void Engine::ScreenComponent::update_pos(const int x, const int y) {
-  this->position = { x, y };
-}
-
-void Engine::ScreenComponent::update_size(const int width, const int heigth) {
-  this->size = { width, heigth };
 }
