@@ -6,13 +6,13 @@
 typedef struct {
   int width;
   int height;
-} WindowSize;
+} Size;
 
 typedef struct {
   int red;
   int green;
   int blue;
-} WindowBgColor;
+} Color;
 
 namespace Engine {
 
@@ -22,8 +22,8 @@ class Window {
 
     SDL_Window* sdl_window;
     SDL_Event current_event;
-    WindowSize window_size;
-    WindowBgColor window_bg_color;
+    Size window_size;
+    Color window_bg_color;
     bool is_active = false;
 
     int pool_event();

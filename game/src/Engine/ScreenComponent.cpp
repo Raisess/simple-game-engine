@@ -1,11 +1,11 @@
 #include "ScreenComponent.h"
 
-Engine::ScreenComponent::ScreenComponent(Window* window, const int x, const int y, const int width, const int heigth, bool fill) {
+Engine::ScreenComponent::ScreenComponent(Window* window, const int x, const int y, const int width, const int height, bool fill) {
   this->window_renderer = window->sdl_renderer;
   this->fill = fill;
 
-  this->update_pos(x, y);
-  this->update_size(width, heigth);
+  this->set_position(x, y);
+  this->set_size(width, height);
   this->draw_rect();
 }
 
@@ -14,7 +14,7 @@ void Engine::ScreenComponent::draw_rect() {
     this->position.x,
     this->position.y,
     this->size.width,
-    this->size.heigth
+    this->size.height
   };
 
   SDL_SetRenderDrawColor(this->window_renderer, this->color.red, this->color.green, this->color.blue, 255);
