@@ -3,32 +3,35 @@
 #include "Engine/ScreenComponent.h"
 #include "Engine/Keyboard.h"
 
+#define FILL_PLAYER true
+#define FILL_FLOOR true
+
 int main(int argc, char** argv) {
   auto* window = new Engine::Window("DwarfAttack", 640, 480);
   window->set_backgroud_color(0, 0, 255);
 
-  auto* some_component = new Engine::ScreenComponent(window, 0, 0, 100, 100, true);
-  some_component->set_color(255, 0, 0);
-  auto* floor_component = new Engine::ScreenComponent(window, 0, 440, 640, 40, true);
-  floor_component->set_color(0, 255, 0);
+  auto* player = new Engine::ScreenComponent(window, 0, 0, 50, 50, FILL_PLAYER);
+  player->set_color(255, 0, 0);
+  auto* floor = new Engine::ScreenComponent(window, 0, 440, 640, 40, FILL_FLOOR);
+  floor->set_color(0, 255, 0);
   
-  const auto callback = [window, some_component, floor_component]() -> void {
+  const auto callback = [window, player, floor]() -> void {
     auto key = Engine::Keyboard::key();
-    auto some_component_pos = some_component->get_position();
+    auto player_pos = player->get_position();
 
     if (key[SDL_SCANCODE_RIGHT]) {
-      some_component->set_position(some_component_pos.x + 10, some_component_pos.y);
+      player->set_position(player_pos.x + 10, player_pos.y);
     } else if (key[SDL_SCANCODE_LEFT]) {
-      some_component->set_position(some_component_pos.x - 10, some_component_pos.y);
+      player->set_position(player_pos.x - 10, player_pos.y);
     } else if (key[SDL_SCANCODE_UP]) {
-      some_component->set_position(some_component_pos.x, some_component_pos.y - 10);
+      player->set_position(player_pos.x, player_pos.y - 10);
     } else if (key[SDL_SCANCODE_DOWN]) {
-      some_component->set_position(some_component_pos.x, some_component_pos.y + 10);
+      player->set_position(player_pos.x, player_pos.y + 10);
     }
 
     window->update();
-    floor_component->update();
-    some_component->update();
+    player->update();
+    floor->update();
   };
 
   window->event_loop(callback);
