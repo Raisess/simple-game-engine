@@ -17,3 +17,9 @@ build:
 
 clean:
 	rm -rf $(BUILD_DIR)
+
+run:
+	make clean
+	make
+	chmod +x $(BUILD_DIR)/$(BUILD)
+	$(BUILD_DIR)/$(BUILD)
