@@ -49,21 +49,21 @@ void Engine::Window::event_loop(const std::function<void(void)> callback) {
       if (this->current_event.type == SDL_QUIT) {
         this->quit();
       }
-
-      delta_time = last_tick - start_tick;
-
-      if (delta_time < FPS_LIMIT) {
-        SDL_Delay(FPS_LIMIT - delta_time);
-      } else if (delta_time > FPS_LIMIT) {
-        this->fps = 1000 / delta_time;
-      }
-
-      SDL_RenderClear(this->sdl_renderer);
-      callback();
-      SDL_RenderPresent(this->sdl_renderer);
-
-      start_tick = last_tick;
-      last_tick = SDL_GetTicks();
     }
+
+    delta_time = last_tick - start_tick;
+
+    if (delta_time < FPS_LIMIT) {
+      SDL_Delay(FPS_LIMIT - delta_time);
+    } else if (delta_time > FPS_LIMIT) {
+      this->fps = 1000 / delta_time;
+    }
+
+    SDL_RenderClear(this->sdl_renderer);
+    callback();
+    SDL_RenderPresent(this->sdl_renderer);
+
+    start_tick = last_tick;
+    last_tick = SDL_GetTicks();
   }
 }
