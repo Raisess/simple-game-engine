@@ -11,7 +11,7 @@ class Physics {
     }
 
   public:
-    void static apply_gravity(ScreenComponent* component, ScreenComponent* floor_component);
+    void static apply_gravity(ScreenComponent* component);
     bool static is_colliding(ScreenComponent* x_component, ScreenComponent* y_component);
 };
 

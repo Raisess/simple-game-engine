@@ -1,21 +1,13 @@
-#include <iostream>
 #include "Physics.h"
 
 #define GRAVITY_FORCE 0.2F
 
-void Engine::Physics::apply_gravity(ScreenComponent* component, ScreenComponent* floor_component) {
+void Engine::Physics::apply_gravity(ScreenComponent* component) {
   Position component_position = component->get_position();
   Size component_size = component->get_size();
-  Position floor_position = floor_component->get_position();
-  Size floor_size = floor_component->get_size();
 
-  if (Engine::Physics::is_colliding(component, floor_component)) {
-    component->set_gravity_speed(0);
-    component->set_position(component_position.x, floor_position.y - floor_size.height - (component_size.height - floor_size.height));
-  } else {
-    component->set_gravity_speed(component->get_gravity_speed() + GRAVITY_FORCE);
-    component->set_position(component_position.x, component_position.y + component->get_gravity_speed());
-  }
+  component->set_gravity_speed(component->get_gravity_speed() + GRAVITY_FORCE);
+  component->set_position(component_position.x, component_position.y + component->get_gravity_speed());
 }
 
 bool Engine::Physics::is_colliding(ScreenComponent* x_component, ScreenComponent* y_component) {
