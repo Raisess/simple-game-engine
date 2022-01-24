@@ -9,6 +9,8 @@ namespace Engine {
 class TextComponent {
   private:
     SDL_Renderer* window_renderer;
+    SDL_Surface* sdl_surface;
+    SDL_Texture* sdl_texture;
     TTF_Font* font;
     Position position;
     Size size;
@@ -19,6 +21,7 @@ class TextComponent {
 
   public:
     TextComponent(Window* window, const int x, const int y, const int width, const int heigth, const int font_size);
+    ~TextComponent();
 
     Position get_position() {
       return this->position;
@@ -46,6 +49,9 @@ class TextComponent {
     }
     void update() {
       this->draw_text();
+    }
+    void destroy() {
+      Engine::TextComponent::~TextComponent();
     }
 };
 

@@ -67,13 +67,10 @@ int main(int argc, char** argv) {
 
     player->update();
     window->update();
-
-    // std::cout << "FPS: " << window->get_fps() << std::endl;
   };
 
   window->event_loop(callback);
-
-  std::cout << "Finished!" << std::endl;
+  fps_text->destroy();
 
   return 0;
 }

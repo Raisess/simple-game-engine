@@ -11,13 +11,19 @@ Engine::TextComponent::TextComponent(Window* window, const int x, const int y, c
   TTF_Init();
   this->font = TTF_OpenFont(FONT_PATH, font_size);
   if (!this->font) {
-    std::cout << "Failed to render text: " << TTF_GetError() << std::endl;
+    std::cout << "Failed to load font: " << TTF_GetError() << std::endl;
   }
 }
 
+Engine::TextComponent::~TextComponent() {
+  SDL_FreeSurface(this->sdl_surface);
+  SDL_DestroyTexture(this->sdl_texture);
+  TTF_Quit();
+}
+
 void Engine::TextComponent::draw_text() {
-  SDL_Surface* surface = TTF_RenderText_Solid(this->font, this->value.c_str(), this->color);
-  SDL_Texture* texture = SDL_CreateTextureFromSurface(this->window_renderer, surface);
+  this->sdl_surface = TTF_RenderText_Solid(this->font, this->value.c_str(), this->color);
+  this->sdl_texture = SDL_CreateTextureFromSurface(this->window_renderer, this->sdl_surface);
 
   SDL_Rect rect = {
     this->position.x,
@@ -26,5 +32,5 @@ void Engine::TextComponent::draw_text() {
     this->size.height
   };
 
-  SDL_RenderCopy(this->window_renderer, texture, NULL, &rect);
+  SDL_RenderCopy(this->window_renderer, this->sdl_texture, NULL, &rect);
 }

@@ -17,7 +17,6 @@ class ScreenComponent {
 
   public:
     ScreenComponent(Window* window, const int x, const int y, const int width, const int height, bool fill);
-    ~ScreenComponent();
 
     Position get_position() {
       return this->position;
