@@ -4,6 +4,11 @@
 #include <SDL2/SDL.h>
 
 typedef struct {
+  int x;
+  int y;
+} Position;
+
+typedef struct {
   int width;
   int height;
 } Size;
