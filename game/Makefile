@@ -6,7 +6,8 @@ LINKER_FLAGS=-lSDL2
 SRC_DIR=./src
 FILES=$(SRC_DIR)/main.cpp \
 			$(SRC_DIR)/Engine/Window.cpp \
-			$(SRC_DIR)/Engine/ScreenComponent.cpp
+			$(SRC_DIR)/Engine/ScreenComponent.cpp \
+			$(SRC_DIR)/Engine/Physics.cpp
 
 BUILD_DIR=./build
 BUILD=DwarfAttack

@@ -14,6 +14,7 @@ class ScreenComponent {
     SDL_Renderer* window_renderer;
     SDL_Rect rect;
     Position position;
+    float gravity_speed = 0.00F;
     Size size;
     Color color;
     bool fill;
@@ -29,6 +30,12 @@ class ScreenComponent {
     }
     void set_position(const int x, const int y) {
       this->position = { x, y };
+    }
+    float get_gravity_speed() {
+      return this->gravity_speed;
+    }
+    void set_gravity_speed(const float gravity_speed) {
+      this->gravity_speed = gravity_speed;
     }
     Size get_size() {
       return this->size;
