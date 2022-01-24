@@ -1,7 +1,7 @@
 CC=g++
 
 FLAGS=-w
-LINKER_FLAGS=-lSDL2 -lGL -lX11 -ldl -lpthread -lrt
+LINKER_FLAGS=-lSDL2
 
 SRC_DIR=./src
 FILES=$(SRC_DIR)/main.cpp \
@@ -19,6 +19,7 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 run:
+	clear
 	make clean
 	make
 	chmod +x $(BUILD_DIR)/$(BUILD)

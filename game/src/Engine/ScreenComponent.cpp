@@ -6,7 +6,6 @@ Engine::ScreenComponent::ScreenComponent(Window* window, const int x, const int 
 
   this->set_position(x, y);
   this->set_size(width, height);
-  this->draw_rect();
 }
 
 void Engine::ScreenComponent::draw_rect() {
