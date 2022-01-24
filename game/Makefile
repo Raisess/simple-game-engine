@@ -1,12 +1,13 @@
 CC=g++
 
 FLAGS=-w
-LINKER_FLAGS=-lSDL2
+LINKER_FLAGS=-lSDL2 -lSDL2_ttf
 
 SRC_DIR=./src
 FILES=$(SRC_DIR)/main.cpp \
 			$(SRC_DIR)/Engine/Window.cpp \
 			$(SRC_DIR)/Engine/ScreenComponent.cpp \
+			$(SRC_DIR)/Engine/TextComponent.cpp \
 			$(SRC_DIR)/Engine/Physics.cpp
 
 BUILD_DIR=./build

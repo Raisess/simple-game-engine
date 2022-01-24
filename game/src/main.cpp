@@ -2,6 +2,7 @@
 #include <vector>
 #include "Engine/Window.h"
 #include "Engine/ScreenComponent.h"
+#include "Engine/TextComponent.h"
 #include "Engine/Physics.h"
 #include "Engine/Keyboard.h"
 
@@ -13,6 +14,8 @@ int main(int argc, char** argv) {
   auto* window = new Engine::Window("DwarfAttack", 640, 480);
   window->set_backgroud_color(0, 0, 255);
 
+  auto* fps_text = new Engine::TextComponent(window, 0, 0, 100, 30, 24);
+  fps_text->set_color(255, 255, 0);
   auto* player = new Engine::ScreenComponent(window, 0, 0, 50, 50, FILL_PLAYER);
   player->set_color(255, 0, 0);
 
@@ -26,7 +29,7 @@ int main(int argc, char** argv) {
     platform->set_color(0, 255, 0);
   }
   
-  const auto callback = [window, player, platforms]() -> void {
+  const auto callback = [window, fps_text, player, platforms]() -> void {
     auto key = Engine::Keyboard::key();
     auto player_pos = player->get_position();
     auto player_size = player->get_size();
@@ -56,6 +59,11 @@ int main(int argc, char** argv) {
 
       platform->update();
     }
+
+    std::string fps_text_str = "FPS: ";
+    fps_text_str.append(std::to_string(window->get_fps()));
+    fps_text->set_value(fps_text_str);
+    fps_text->update();
 
     player->update();
     window->update();
