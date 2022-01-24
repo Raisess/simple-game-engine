@@ -29,9 +29,9 @@ int main(int argc, char** argv) {
       player->set_position(player_pos.x, player_pos.y + 10);
     }
 
-    window->update();
     player->update();
     floor->update();
+    window->update();
 
     std::cout << "FPS: " << window->get_fps() << std::endl;
   };

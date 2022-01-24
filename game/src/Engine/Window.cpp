@@ -9,8 +9,8 @@ Engine::Window::Window(const char* window_name, const int width, const int heigh
   SDL_Init(SDL_INIT_VIDEO);
   this->sdl_window = SDL_CreateWindow(
     window_name,
-    SDL_WINDOWPOS_UNDEFINED,
-    SDL_WINDOWPOS_UNDEFINED,
+    SDL_WINDOWPOS_CENTERED,
+    SDL_WINDOWPOS_CENTERED,
     this->size.width,
     this->size.height,
     SDL_WINDOW_SHOWN
@@ -31,7 +31,8 @@ int Engine::Window::pool_event() {
 }
 
 void Engine::Window::draw_background() {
-  SDL_SetRenderDrawColor(this->sdl_renderer, this->color.red, this->color.green, this->color.blue, 0);
+  SDL_SetRenderDrawColor(this->sdl_renderer, this->color.red, this->color.green, this->color.blue, 255);
+  SDL_RenderDrawRect(this->sdl_renderer, NULL);
 }
 
 int Engine::Window::get_fps() {

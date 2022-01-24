@@ -16,11 +16,11 @@ void Engine::ScreenComponent::draw_rect() {
     this->size.height
   };
 
+  SDL_SetRenderDrawColor(this->window_renderer, this->color.red, this->color.green, this->color.blue, 0);
+
   if (this->fill) {
     SDL_RenderFillRect(this->window_renderer, &this->rect);
   } else {
     SDL_RenderDrawRect(this->window_renderer, &this->rect);
   }
-
-  SDL_SetRenderDrawColor(this->window_renderer, this->color.red, this->color.green, this->color.blue, 255);
 }
