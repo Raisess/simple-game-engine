@@ -24,6 +24,7 @@ class Window {
     Size size;
     Color color;
     bool is_active = false;
+    int fps = 60;
 
     int pool_event();
     void draw_background();
@@ -34,6 +35,7 @@ class Window {
 
     Window(const char* window_name, const int width, const int height);
 
+    int get_fps();
     void event_loop(const std::function<void(void)> callback);
     void set_backgroud_color(const int red, const int green, const int blue) {
       this->color = { red, green, blue };

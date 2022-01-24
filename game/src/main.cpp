@@ -32,6 +32,8 @@ int main(int argc, char** argv) {
     window->update();
     player->update();
     floor->update();
+
+    std::cout << "FPS: " << window->get_fps() << std::endl;
   };
 
   window->event_loop(callback);
