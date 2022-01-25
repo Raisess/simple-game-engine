@@ -10,7 +10,8 @@ FILES=$(SRC_DIR)/main.cpp \
 			$(SRC_DIR)/Engine/TextComponent.cpp \
 			$(SRC_DIR)/Engine/Camera.cpp \
 			$(SRC_DIR)/Engine/Physics.cpp \
-			$(SRC_DIR)/Engine/Managers/ScreenComponentManager.cpp
+			$(SRC_DIR)/Engine/Managers/ScreenComponentManager.cpp \
+			$(SRC_DIR)/Engine/Managers/TextComponentManager.cpp
 
 BUILD_DIR=./build
 BUILD=DwarfAttack

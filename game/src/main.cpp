@@ -4,17 +4,18 @@
 #include "Engine/ScreenComponent.h"
 #include "Engine/Managers/ScreenComponentManager.h"
 #include "Engine/TextComponent.h"
+#include "Engine/Managers/TextComponentManager.h"
 #include "Engine/Camera.h"
 #include "Engine/Physics.h"
 #include "Engine/Keyboard.h"
 
-#define FILL_PLAYER true
-#define FILL_FLOOR true
+#define FILL_ALL true
+#define FILL_PLAYER FILL_ALL && true
+#define FILL_FLOOR FILL_ALL && true
 #define PLAYER_SPEED 5
 
 int main(int argc, char** argv) {
   auto* window = new Engine::Window("DwarfAttack", 640, 480);
-  auto* screen_component_manager = new Engine::Managers::ScreenComponentManager(window);
   auto window_size = window->get_size();
   window->set_backgroud_color(0, 0, 255);
 
@@ -24,12 +25,14 @@ int main(int argc, char** argv) {
   };
 
   Engine::TextComponent::init();
-  auto* fps_text = new Engine::TextComponent(window, 0, 0, 100, 30, 24);
+  auto* text_component_manager = new Engine::Managers::TextComponentManager(window);
+  auto* fps_text = text_component_manager->create_component(0, 0, 100, 30, 24);
   fps_text->set_color(255, 255, 0);
-  auto* test_text = new Engine::TextComponent(window, (window_size.width / 2) - 50, 0, 100, 30, 24);
+  auto* test_text = text_component_manager->create_component((window_size.width / 2) - 50, 0, 100, 30, 24);
   test_text->set_color(255, 255, 255);
   test_text->set_value("Test Text");
 
+  auto* screen_component_manager = new Engine::Managers::ScreenComponentManager(window);
   auto* player = screen_component_manager->create_component(window_size.width / 2, 0, 50, 50, FILL_PLAYER);
   player->set_color(255, 0, 0);
 
@@ -43,7 +46,16 @@ int main(int argc, char** argv) {
     platform->set_color(0, 255, 0);
   }
   
-  const auto callback = [window, world_size, fps_text, test_text, screen_component_manager, player, platforms]() -> void {
+  const auto callback = [
+    window,
+    world_size,
+    fps_text,
+    test_text,
+    text_component_manager,
+    screen_component_manager,
+    player,
+    platforms
+  ]() -> void {
     Engine::Camera::set_camera_viewport(window, world_size, player);
 
     auto key = Engine::Keyboard::key();
@@ -62,6 +74,8 @@ int main(int argc, char** argv) {
 
     Engine::Physics::apply_gravity(player);
 
+    test_text->set_value("Is not colliding");
+
     auto new_player_pos = player->get_position();
 
     for (auto platform : platforms) {
@@ -71,24 +85,22 @@ int main(int argc, char** argv) {
       if (Engine::Physics::is_colliding(player, platform)) {
         player->set_gravity_speed(0);
         player->set_position(new_player_pos.x, platform_pos.y - platform_size.height - (player_size.height - platform_size.height));
-        test_text->destroy();
+        test_text->set_value("Is colliding");
       }
     }
 
     std::string fps_text_str = "FPS: ";
     fps_text_str.append(std::to_string(window->get_fps()));
     fps_text->set_value(fps_text_str);
-    fps_text->update();
-    test_text->update();
 
+    text_component_manager->update_components();
     screen_component_manager->update_components();
     window->update();
   };
-
   window->event_loop(callback);
-  fps_text->destroy();
-  test_text->destroy();
 
+  text_component_manager->destroy_components();
+  screen_component_manager->destroy_components();
   Engine::TextComponent::quit();
 
   return 0;

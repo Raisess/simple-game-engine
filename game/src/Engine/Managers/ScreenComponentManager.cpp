@@ -1,8 +1,6 @@
 #include "ScreenComponentManager.h"
 
-Engine::Managers::ScreenComponentManager::ScreenComponentManager(Window* window) {
-  this->window = window;
-}
+Engine::Managers::ScreenComponentManager::ScreenComponentManager(Window* window) : AbsComponentManager(window) {}
 
 Engine::ScreenComponent* Engine::Managers::ScreenComponentManager::create_component(const int x, const int y, const int width, const int height, bool fill) {
   auto* component = new ScreenComponent(this->window, x, y, width, height, fill);
@@ -12,8 +10,7 @@ Engine::ScreenComponent* Engine::Managers::ScreenComponentManager::create_compon
 }
 
 void Engine::Managers::ScreenComponentManager::destroy_component(ScreenComponent* target_component) {
-  std::vector<ScreenComponent*> tmp = this->components;
-  this->components = {};
+  std::vector<ScreenComponent*> tmp;
 
   for (auto* component : this->components) {
     if (target_component != component) {
@@ -23,6 +20,14 @@ void Engine::Managers::ScreenComponentManager::destroy_component(ScreenComponent
 
   this->components = tmp;
   target_component->destroy();
+}
+
+void Engine::Managers::ScreenComponentManager::destroy_components() {
+  for (auto* component : this->components) {
+    component->destroy();
+  }
+
+  this->components = {};
 }
 
 void Engine::Managers::ScreenComponentManager::update_components() {
