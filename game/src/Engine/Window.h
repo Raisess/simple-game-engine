@@ -45,6 +45,12 @@ class Window {
     void set_backgroud_color(const int red, const int green, const int blue) {
       this->color = { red, green, blue };
     }
+    Size get_size() {
+      return this->size;
+    }
+    void set_size(const int width, const int heigth) {
+      this->size = { width, heigth };
+    }
     void update() {
       this->draw_background();
     }

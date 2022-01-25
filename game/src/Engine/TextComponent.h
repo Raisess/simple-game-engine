@@ -8,7 +8,7 @@ namespace Engine {
 
 class TextComponent {
   private:
-    SDL_Renderer* window_renderer;
+    Window* window;
     SDL_Surface* sdl_surface;
     SDL_Texture* sdl_texture;
     TTF_Font* font;

@@ -8,6 +8,7 @@ FILES=$(SRC_DIR)/main.cpp \
 			$(SRC_DIR)/Engine/Window.cpp \
 			$(SRC_DIR)/Engine/ScreenComponent.cpp \
 			$(SRC_DIR)/Engine/TextComponent.cpp \
+			$(SRC_DIR)/Engine/Camera.cpp \
 			$(SRC_DIR)/Engine/Physics.cpp
 
 BUILD_DIR=./build

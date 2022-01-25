@@ -6,7 +6,7 @@ namespace Engine {
 
 class ScreenComponent {
   private:
-    SDL_Renderer* window_renderer;
+    Window* window;
     Position position;
     float gravity_speed = 0.00F;
     Size size;

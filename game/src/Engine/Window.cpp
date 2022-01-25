@@ -4,7 +4,7 @@
 
 Engine::Window::Window(const char* window_name, const int width, const int height) {
   this->is_active = true;
-  this->size = { width, height };
+  this->set_size(width, height);
 
   SDL_Init(SDL_INIT_VIDEO);
   this->sdl_window = SDL_CreateWindow(
@@ -15,7 +15,7 @@ Engine::Window::Window(const char* window_name, const int width, const int heigh
     this->size.height,
     SDL_WINDOW_SHOWN
   );
-  this->sdl_renderer = SDL_CreateRenderer(this->sdl_window, -1, SDL_RENDERER_SOFTWARE);
+  this->sdl_renderer = SDL_CreateRenderer(this->sdl_window, -1, SDL_RENDERER_ACCELERATED);
 }
 
 Engine::Window::~Window() {
