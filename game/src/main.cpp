@@ -5,6 +5,7 @@
 #include "Engine/Managers/ScreenComponentManager.h"
 #include "Engine/TextComponent.h"
 #include "Engine/Managers/TextComponentManager.h"
+#include "Game/Player.h"
 #include "Engine/Camera.h"
 #include "Engine/Physics.h"
 #include "Engine/Keyboard.h"
@@ -12,29 +13,31 @@
 #define FILL_ALL true
 #define FILL_PLAYER FILL_ALL && true
 #define FILL_FLOOR FILL_ALL && true
-#define PLAYER_SPEED 5
 
 int main(int argc, char** argv) {
+  Engine::TextComponent::init();
+
   auto* window = new Engine::Window("DwarfAttack", 640, 480);
-  auto window_size = window->get_size();
   window->set_backgroud_color(0, 0, 255);
 
+  auto window_size = window->get_size();
   Size world_size = {
     1500,
     1000,
   };
 
-  Engine::TextComponent::init();
   auto* text_component_manager = new Engine::Managers::TextComponentManager(window);
+  auto* screen_component_manager = new Engine::Managers::ScreenComponentManager(window);
+
   auto* fps_text = text_component_manager->create_component(0, 0, 100, 30, 24);
   fps_text->set_color(255, 255, 0);
   auto* test_text = text_component_manager->create_component((window_size.width / 2) - 50, 0, 100, 30, 24);
   test_text->set_color(255, 255, 255);
   test_text->set_value("Test Text");
 
-  auto* screen_component_manager = new Engine::Managers::ScreenComponentManager(window);
-  auto* player = screen_component_manager->create_component(window_size.width / 2, 0, 50, 50, FILL_PLAYER);
-  player->set_color(255, 0, 0);
+  auto* player = new Game::Player(
+    screen_component_manager->create_component(window_size.width / 2, 0, 50, 50, FILL_PLAYER)
+  );
 
   std::vector<Engine::ScreenComponent*> platforms = {
     screen_component_manager->create_component(0, 440, 1000, 40, FILL_FLOOR),
@@ -56,35 +59,33 @@ int main(int argc, char** argv) {
     player,
     platforms
   ]() -> void {
-    Engine::Camera::set_camera_viewport(window, world_size, player);
+    Engine::Camera::set_camera_viewport(window, world_size, player->component);
+
+    auto player_pos = player->component->get_position();
+    auto player_size = player->component->get_size();
 
     auto key = Engine::Keyboard::key();
-    auto player_pos = player->get_position();
-    auto player_size = player->get_size();
-
-    if (key[SDL_SCANCODE_RIGHT]) {
-      player->set_position(player_pos.x + PLAYER_SPEED, player_pos.y);
-    } else if (key[SDL_SCANCODE_LEFT]) {
-      player->set_position(player_pos.x - PLAYER_SPEED, player_pos.y);
-    } else if (key[SDL_SCANCODE_UP]) {
-      player->set_position(player_pos.x, player_pos.y - (PLAYER_SPEED + 2));
+    if (key[SDL_SCANCODE_UP]) {
+      player->move_up();
+    } else if (key[SDL_SCANCODE_RIGHT]) {
+      player->move_right();
     } else if (key[SDL_SCANCODE_DOWN]) {
-      player->set_position(player_pos.x, player_pos.y + PLAYER_SPEED);
+      player->move_down();
+    } else if (key[SDL_SCANCODE_LEFT]) {
+      player->move_left();
     }
 
-    Engine::Physics::apply_gravity(player);
+    player->apply_gravity();
 
+    auto new_player_pos = player->component->get_position();
     test_text->set_value("Is not colliding");
-
-    auto new_player_pos = player->get_position();
-
     for (auto platform : platforms) {
       auto platform_pos = platform->get_position();
       auto platform_size = platform->get_size();
 
-      if (Engine::Physics::is_colliding(player, platform)) {
-        player->set_gravity_speed(0);
-        player->set_position(new_player_pos.x, platform_pos.y - platform_size.height - (player_size.height - platform_size.height));
+      if (player->is_colliding(platform)) {
+        player->component->set_gravity_speed(0);
+        player->component->set_position(new_player_pos.x, platform_pos.y - platform_size.height - (player_size.height - platform_size.height));
         test_text->set_value("Is colliding");
       }
     }
@@ -101,7 +102,7 @@ int main(int argc, char** argv) {
 
   text_component_manager->destroy_components();
   screen_component_manager->destroy_components();
-  Engine::TextComponent::quit();
 
+  Engine::TextComponent::quit();
   return 0;
 }
