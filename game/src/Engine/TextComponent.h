@@ -15,6 +15,7 @@ class TextComponent {
     Position position;
     Size size;
     SDL_Color color;
+    bool active = false;
     std::string value = "";
 
     void draw_text();
@@ -23,6 +24,8 @@ class TextComponent {
     TextComponent(Window* window, const int x, const int y, const int width, const int heigth, const int font_size);
     ~TextComponent();
 
+    static void init();
+    static void quit();
     Position get_position() {
       return this->position;
     }

@@ -7,11 +7,15 @@ namespace Engine {
 class ScreenComponent {
   private:
     Window* window;
+    SDL_Texture* sdl_texture;
     Position position;
     float gravity_speed = 0.00F;
     Size size;
     Color color;
     bool fill;
+    bool active = false;
+
+    ~ScreenComponent();
 
     void draw_rect();
 
@@ -42,8 +46,14 @@ class ScreenComponent {
     void set_color(const int red, const int green, const int blue) {
       this->color = { red, green, blue };
     }
+    bool is_active() {
+      return this->active;
+    }
     void update() {
       this->draw_rect();
+    }
+    void destroy() {
+      Engine::ScreenComponent::~ScreenComponent();
     }
 };
 
