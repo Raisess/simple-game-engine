@@ -17,7 +17,7 @@
 int main(int argc, char** argv) {
   Engine::TextComponent::init();
 
-  auto* window = new Engine::Window("DwarfAttack", 640, 480);
+  auto* window = new Engine::Window("DwarfAttack", 800, 600);
   window->set_backgroud_color(0, 0, 255);
 
   auto window_size = window->get_size();
