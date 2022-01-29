@@ -1,4 +1,5 @@
 #include "TextComponent.h"
+#include "../Utils/Logger.h"
 
 #define FONT_PATH "/usr/share/fonts/TTF/OpenSans-Bold.ttf"
 
@@ -10,8 +11,9 @@ Engine::TextComponent::TextComponent(Window* window, const int x, const int y, c
   this->set_size(width, height);
 
   this->font = TTF_OpenFont(FONT_PATH, font_size);
+
   if (!this->font) {
-    std::cout << "Failed to load font: " << TTF_GetError() << std::endl;
+    Utils::Logger::error("TextComponent", "Failed to load font: ", TTF_GetError());
   }
 }
 

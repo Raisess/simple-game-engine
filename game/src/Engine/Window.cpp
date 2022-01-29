@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "../Utils/Logger.h"
 
 #define FPS_LIMIT 30
 
@@ -15,6 +16,11 @@ Engine::Window::Window(const char* window_name, const int width, const int heigh
     this->size.height,
     SDL_WINDOW_SHOWN
   );
+
+  if (!this->sdl_window) {
+    Utils::Logger::error("Window", "Failed to create window: ", SDL_GetError());
+  }
+
   this->sdl_renderer = SDL_CreateRenderer(this->sdl_window, -1, SDL_RENDERER_ACCELERATED);
 }
 
