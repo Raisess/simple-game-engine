@@ -33,6 +33,9 @@ class Window {
 
     int pool_event();
     void draw_background();
+    void update() {
+      this->draw_background();
+    }
 
   public:
     SDL_Window* sdl_window;
@@ -50,9 +53,6 @@ class Window {
     }
     void set_size(const int width, const int heigth) {
       this->size = { width, heigth };
-    }
-    void update() {
-      this->draw_background();
     }
     void quit() {
       Engine::Window::~Window();

@@ -67,6 +67,7 @@ void Engine::Window::event_loop(const std::function<void(void)> callback) {
 
     SDL_RenderClear(this->sdl_renderer);
     callback();
+    this->update();
     SDL_RenderPresent(this->sdl_renderer);
 
     start_tick = last_tick;

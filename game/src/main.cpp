@@ -43,6 +43,10 @@ int main(int argc, char** argv) {
   enemy->component->set_color(255, 255, 0);
   
   const auto callback = [&]() -> void {
+    std::string fps_text_str = "FPS: ";
+    fps_text_str.append(std::to_string(window->get_fps()));
+    fps_text->set_value(fps_text_str);
+
     Engine::Camera::set_camera_viewport(window, world_size, player->component);
 
     player->detect_keydown();
@@ -66,13 +70,8 @@ int main(int argc, char** argv) {
       }
     }
 
-    std::string fps_text_str = "FPS: ";
-    fps_text_str.append(std::to_string(window->get_fps()));
-    fps_text->set_value(fps_text_str);
-
     text_component_manager->update_components();
     screen_component_manager->update_components();
-    window->update();
   };
   window->event_loop(callback);
 
