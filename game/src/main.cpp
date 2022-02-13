@@ -6,6 +6,7 @@
 #include "Engine/TextComponent.h"
 #include "Engine/Managers/TextComponentManager.h"
 #include "Game/Player.h"
+#include "Game/Platform.h"
 #include "Engine/Camera.h"
 #include "Engine/Physics.h"
 #include "Engine/Keyboard.h"
@@ -39,14 +40,14 @@ int main(int argc, char** argv) {
     screen_component_manager->create_component(window_size.width / 2, 0, 50, 50, FILL_PLAYER)
   );
 
-  std::vector<Engine::ScreenComponent*> platforms = {
-    screen_component_manager->create_component(0, 440, 1000, 40, FILL_FLOOR),
-    screen_component_manager->create_component(440, 300, 200, 40, FILL_FLOOR),
-    screen_component_manager->create_component(250, 150, 200, 40, FILL_FLOOR),
-  };
+  std::vector<Game::Platform*> platforms = Game::Platform::create_many(screen_component_manager, {
+    { 0, 440, 1000, 40, FILL_FLOOR },
+    { 440, 300, 200, 40, FILL_FLOOR },
+    { 250, 150, 200, 40, FILL_FLOOR },
+  });
 
   for (auto platform : platforms) {
-    platform->set_color(0, 255, 0);
+    platform->component->set_color(0, 255, 0);
   }
   
   const auto callback = [
@@ -80,10 +81,10 @@ int main(int argc, char** argv) {
     auto new_player_pos = player->component->get_position();
     test_text->set_value("Is not colliding");
     for (auto platform : platforms) {
-      auto platform_pos = platform->get_position();
-      auto platform_size = platform->get_size();
+      auto platform_pos = platform->component->get_position();
+      auto platform_size = platform->component->get_size();
 
-      if (player->is_colliding(platform)) {
+      if (player->is_colliding(platform->component)) {
         player->component->set_gravity_speed(0);
         player->component->set_position(new_player_pos.x, platform_pos.y - platform_size.height - (player_size.height - platform_size.height));
         test_text->set_value("Is colliding");

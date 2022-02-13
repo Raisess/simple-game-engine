@@ -12,7 +12,8 @@ FILES=$(SRC_DIR)/main.cpp \
 			$(SRC_DIR)/Engine/Physics.cpp \
 			$(SRC_DIR)/Engine/Managers/ScreenComponentManager.cpp \
 			$(SRC_DIR)/Engine/Managers/TextComponentManager.cpp \
-			$(SRC_DIR)/Game/Player.cpp
+			$(SRC_DIR)/Game/Player.cpp \
+			$(SRC_DIR)/Game/Platform.cpp
 
 BUILD_DIR=./build
 BUILD=DwarfAttack
