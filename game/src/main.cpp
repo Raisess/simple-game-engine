@@ -25,17 +25,19 @@ int main(int argc, char** argv) {
   auto* text_component_manager = new Engine::Managers::TextComponentManager(window);
   auto* screen_component_manager = new Engine::Managers::ScreenComponentManager(window);
 
+  const int middle_screen = window_size.width / 2;
+
   auto* fps_text = text_component_manager->create_component(0, 0, 100, 30, 24);
   fps_text->set_color(255, 255, 0);
-  auto* test_text = text_component_manager->create_component((window_size.width / 2) - 50, 0, 100, 30, 24);
+  auto* test_text = text_component_manager->create_component(middle_screen - 50, 0, 100, 30, 24);
   test_text->set_color(255, 255, 255);
   test_text->set_value("Test Text");
 
-  auto* player = new Game::Player(screen_component_manager, { window_size.width / 2, 0, 50, 50, FILL_PLAYER });
+  auto* player = new Game::Player(screen_component_manager, { middle_screen + 500, 0, 50, 50, FILL_PLAYER });
   auto platforms = Game::Platform::create_many(screen_component_manager, {
-    { 0, 440, 1000, 40, FILL_FLOOR },
-    { 440, 300, 200, 40, FILL_FLOOR },
-    { 250, 150, 200, 40, FILL_FLOOR },
+    { middle_screen, 440, 1000, 40, FILL_FLOOR },
+    { middle_screen + 440, 300, 200, 40, FILL_FLOOR },
+    { middle_screen + 250, 150, 200, 40, FILL_FLOOR },
   });
   
   const auto callback = [&]() -> void {

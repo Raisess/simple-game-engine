@@ -43,7 +43,7 @@ void Engine::TextComponent::draw_text() {
     SDL_RenderGetViewport(this->window->sdl_renderer, &camera_rect);
 
     SDL_Rect rect = {
-      ((this->position.x - camera_rect.x) + (window_size.width / 6)) - this->size.width,
+      ((this->position.x - camera_rect.x) + (window_size.width / 8)) - this->size.width,
       this->position.y,
       this->size.width,
       this->size.height
