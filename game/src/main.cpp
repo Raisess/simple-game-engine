@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Engine/Window.h"
 #include "Engine/Camera.h"
-#include "Engine/Keyboard.h"
 #include "Engine/Managers/ScreenComponentManager.h"
 #include "Engine/Managers/TextComponentManager.h"
 #include "Game/Player.h"
@@ -38,10 +37,6 @@ int main(int argc, char** argv) {
     { 440, 300, 200, 40, FILL_FLOOR },
     { 250, 150, 200, 40, FILL_FLOOR },
   });
-
-  for (auto platform : platforms) {
-    platform->component->set_color(0, 255, 0);
-  }
   
   const auto callback = [&]() -> void {
     Engine::Camera::set_camera_viewport(window, world_size, player->component);
@@ -49,17 +44,7 @@ int main(int argc, char** argv) {
     auto player_pos = player->component->get_position();
     auto player_size = player->component->get_size();
 
-    auto key = Engine::Keyboard::key();
-    if (key[SDL_SCANCODE_UP]) {
-      player->move_up();
-    } else if (key[SDL_SCANCODE_RIGHT]) {
-      player->move_right();
-    } else if (key[SDL_SCANCODE_DOWN]) {
-      player->move_down();
-    } else if (key[SDL_SCANCODE_LEFT]) {
-      player->move_left();
-    }
-
+    player->detect_keydown();
     player->apply_gravity();
 
     auto new_player_pos = player->component->get_position();

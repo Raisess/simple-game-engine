@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "../Engine/Physics.h"
+#include "../Engine/Keyboard.h"
 
 #define PLAYER_SPEED 5
 
@@ -30,6 +31,20 @@ void Game::Player::move_left() {
 
 void Game::Player::apply_gravity() {
   Engine::Physics::apply_gravity(this->component);
+}
+
+void Game::Player::detect_keydown() {
+  auto key = Engine::Keyboard::key();
+
+  if (key[SDL_SCANCODE_UP]) {
+    this->move_up();
+  } else if (key[SDL_SCANCODE_RIGHT]) {
+    this->move_right();
+  } else if (key[SDL_SCANCODE_DOWN]) {
+    this->move_down();
+  } else if (key[SDL_SCANCODE_LEFT]) {
+    this->move_left();
+  }
 }
 
 bool Game::Player::is_colliding(Engine::ScreenComponent* colliding_component) {

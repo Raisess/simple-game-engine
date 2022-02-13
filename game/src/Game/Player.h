@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Engine/Managers/ScreenComponentManager.h"
 #include "../Engine/ScreenComponent.h"
+#include "../Engine/Managers/ScreenComponentManager.h"
 
 typedef struct {
   const int x;
@@ -24,6 +24,7 @@ class Player {
     void move_down();
     void move_left();
     void apply_gravity();
+    void detect_keydown();
     bool is_colliding(Engine::ScreenComponent* colliding_component);
 };
 
