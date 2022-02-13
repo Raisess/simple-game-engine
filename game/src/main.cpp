@@ -1,15 +1,11 @@
 #include <iostream>
-#include <vector>
 #include "Engine/Window.h"
-#include "Engine/ScreenComponent.h"
+#include "Engine/Camera.h"
+#include "Engine/Keyboard.h"
 #include "Engine/Managers/ScreenComponentManager.h"
-#include "Engine/TextComponent.h"
 #include "Engine/Managers/TextComponentManager.h"
 #include "Game/Player.h"
 #include "Game/Platform.h"
-#include "Engine/Camera.h"
-#include "Engine/Physics.h"
-#include "Engine/Keyboard.h"
 
 #define FILL_ALL true
 #define FILL_PLAYER FILL_ALL && true
@@ -36,11 +32,8 @@ int main(int argc, char** argv) {
   test_text->set_color(255, 255, 255);
   test_text->set_value("Test Text");
 
-  auto* player = new Game::Player(
-    screen_component_manager->create_component(window_size.width / 2, 0, 50, 50, FILL_PLAYER)
-  );
-
-  std::vector<Game::Platform*> platforms = Game::Platform::create_many(screen_component_manager, {
+  auto* player = new Game::Player(screen_component_manager, { window_size.width / 2, 0, 50, 50, FILL_PLAYER });
+  auto platforms = Game::Platform::create_many(screen_component_manager, {
     { 0, 440, 1000, 40, FILL_FLOOR },
     { 440, 300, 200, 40, FILL_FLOOR },
     { 250, 150, 200, 40, FILL_FLOOR },
@@ -50,16 +43,7 @@ int main(int argc, char** argv) {
     platform->component->set_color(0, 255, 0);
   }
   
-  const auto callback = [
-    window,
-    world_size,
-    fps_text,
-    test_text,
-    text_component_manager,
-    screen_component_manager,
-    player,
-    platforms
-  ]() -> void {
+  const auto callback = [&]() -> void {
     Engine::Camera::set_camera_viewport(window, world_size, player->component);
 
     auto player_pos = player->component->get_position();

@@ -1,10 +1,10 @@
-#include "../Engine/Physics.h"
 #include "Player.h"
+#include "../Engine/Physics.h"
 
 #define PLAYER_SPEED 5
 
-Game::Player::Player(Engine::ScreenComponent* component) {
-  this->component = component;
+Game::Player::Player(Engine::Managers::ScreenComponentManager* component_manager, PlayerOptions player_options) {
+  this->component = component_manager->create_component(player_options.x, player_options.y, player_options.width, player_options.height, player_options.fill);
   this->component->set_color(255, 0, 0);
 }
 
