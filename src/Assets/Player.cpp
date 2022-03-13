@@ -40,20 +40,6 @@ void Assets::Player::apply_gravity() {
   }
 }
 
-void Assets::Player::detect_keydown() {
-  auto key = Core::Keyboard::key();
-
-  if (key[SDL_SCANCODE_UP]) {
-    this->move_up();
-  } else if (key[SDL_SCANCODE_RIGHT]) {
-    this->move_right();
-  } else if (key[SDL_SCANCODE_DOWN]) {
-    this->move_down();
-  } else if (key[SDL_SCANCODE_LEFT]) {
-    this->move_left();
-  }
-}
-
 bool Assets::Player::is_colliding(Core::ScreenComponent* colliding_component) {
   return Core::Physics::is_colliding(this->component, colliding_component);
 }

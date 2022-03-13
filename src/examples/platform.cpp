@@ -1,11 +1,12 @@
 #include <iostream>
 #include <vector>
-#include "Core/Window.h"
-#include "Core/Camera.h"
-#include "Core/Managers/ScreenComponentManager.h"
-#include "Core/Managers/TextComponentManager.h"
-#include "Assets/Player.h"
-#include "Assets/Platform.h"
+#include "../Core/Window.h"
+#include "../Core/Camera.h"
+#include "../Core/Keyboard.h"
+#include "../Core/Managers/ScreenComponentManager.h"
+#include "../Core/Managers/TextComponentManager.h"
+#include "../Assets/Player.h"
+#include "../Assets/Platform.h"
 
 #define FILL_ALL true
 #define FILL_PLAYER FILL_ALL && true
@@ -49,7 +50,17 @@ int main(int argc, char** argv) {
 
     Core::Camera::set_camera_viewport(window, world_size, player->component);
 
-    player->detect_keydown();
+    auto key_down = Core::Keyboard::key();
+
+    if (key_down[SDL_SCANCODE_UP]) {
+      player->move_up();
+    } else if (key_down[SDL_SCANCODE_RIGHT]) {
+      player->move_right();
+    } else if (key_down[SDL_SCANCODE_DOWN]) {
+      player->move_down();
+    } else if (key_down[SDL_SCANCODE_LEFT]) {
+      player->move_left();
+    }
 
     for (auto entity : live_entities) {
       entity->apply_gravity();
