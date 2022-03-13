@@ -11,15 +11,15 @@ typedef struct {
   const int width;
   const int height;
   bool fill;
-} PlayerOptions;
+} ObjectOptions;
 
 namespace Assets {
 
-class Player {
+class Object {
   public:
     Core::ScreenComponent* component;
 
-    Player(Core::Managers::ScreenComponentManager* component_manager, PlayerOptions player_options);
+    Object(Core::Managers::ScreenComponentManager* component_manager, ObjectOptions player_options);
 
     void move_up(const int speed = PLAYER_SPEED);
     void move_right(const int speed = PLAYER_SPEED);

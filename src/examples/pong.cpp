@@ -2,7 +2,7 @@
 #include "../Core/Window.h"
 #include "../Core/Keyboard.h"
 #include "../Core/Managers/ScreenComponentManager.h"
-#include "../Assets/Player.h"
+#include "../Assets/Object.h"
 
 #define FILL_OBJECT true
 
@@ -12,15 +12,15 @@ int main() {
 
   auto* screen_component_manager = new Core::Managers::ScreenComponentManager(window);
 
-  auto* left_player = new Assets::Player(screen_component_manager, { 10, (window_size.height / 2) - 50, 10, 100, FILL_OBJECT });
+  auto* left_player = new Assets::Object(screen_component_manager, { 10, (window_size.height / 2) - 50, 10, 100, FILL_OBJECT });
   auto left_player_size = left_player->component->get_size();
   left_player->component->set_color(255, 255, 255);
 
-  auto* right_player = new Assets::Player(screen_component_manager, { window_size.width - 20, (window_size.height / 2) - 50, 10, 100, FILL_OBJECT });
+  auto* right_player = new Assets::Object(screen_component_manager, { window_size.width - 20, (window_size.height / 2) - 50, 10, 100, FILL_OBJECT });
   auto right_player_size = right_player->component->get_size();
   right_player->component->set_color(255, 255, 255);
 
-  auto* ball = new Assets::Player(screen_component_manager, { 0, 0, 20, 20, FILL_OBJECT });
+  auto* ball = new Assets::Object(screen_component_manager, { 0, 0, 20, 20, FILL_OBJECT });
   auto ball_size = ball->component->get_size();
   ball->component->set_color(255, 255, 255);
 

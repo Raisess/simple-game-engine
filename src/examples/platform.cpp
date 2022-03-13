@@ -5,7 +5,7 @@
 #include "../Core/Keyboard.h"
 #include "../Core/Managers/ScreenComponentManager.h"
 #include "../Core/Managers/TextComponentManager.h"
-#include "../Assets/Player.h"
+#include "../Assets/Object.h"
 #include "../Assets/Platform.h"
 
 #define FILL_ALL true
@@ -31,9 +31,9 @@ int main(int argc, char** argv) {
   auto* fps_text = text_component_manager->create_component(0, 0, 100, 30, 24);
   fps_text->set_color(255, 255, 0);
 
-  auto* player = new Assets::Player(screen_component_manager, { middle_screen + 500, 0, 50, 50, FILL_PLAYER });
-  auto* enemy = new Assets::Player(screen_component_manager, { middle_screen + 600, 0, 50, 50, FILL_PLAYER });
-  std::vector<Assets::Player*> live_entities = { player, enemy };
+  auto* player = new Assets::Object(screen_component_manager, { middle_screen + 500, 0, 50, 50, FILL_PLAYER });
+  auto* enemy = new Assets::Object(screen_component_manager, { middle_screen + 600, 0, 50, 50, FILL_PLAYER });
+  std::vector<Assets::Object*> live_entities = { player, enemy };
 
   auto platforms = Assets::Platform::create_many(screen_component_manager, {
     { middle_screen, 440, 1000, 40, FILL_FLOOR },
