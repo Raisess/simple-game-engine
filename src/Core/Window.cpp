@@ -5,6 +5,7 @@
 
 Core::Window::Window(const char* window_name, const int width, const int height) {
   this->is_active = true;
+  this->fps = FPS_LIMIT;
   this->set_size(width, height);
 
   SDL_Init(SDL_INIT_VIDEO);

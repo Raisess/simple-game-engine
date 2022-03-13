@@ -28,8 +28,8 @@ class Window {
     SDL_Event current_event;
     Size size;
     Color color;
-    bool is_active = false;
-    int fps = 60;
+    bool is_active;
+    int fps;
 
     int pool_event();
     void draw_background();
