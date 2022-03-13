@@ -47,7 +47,7 @@ int main() {
     platform->component->set_color(0, 255, 0);
   }
   
-  const auto callback = [&]() -> void {
+  window->loop([&]() -> void {
     std::string fps_text_str = "FPS: ";
     fps_text_str.append(std::to_string(window->get_fps()));
     fps_text->set_value(fps_text_str);
@@ -87,8 +87,7 @@ int main() {
 
     text_component_manager->update_components();
     screen_component_manager->update_components();
-  };
-  window->event_loop(callback);
+  });
 
   text_component_manager->destroy_components();
   screen_component_manager->destroy_components();

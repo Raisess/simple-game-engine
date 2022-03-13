@@ -46,7 +46,7 @@ int Core::Window::get_fps() {
   return this->fps;
 }
 
-void Core::Window::event_loop(const std::function<void(void)> callback) {
+void Core::Window::loop(const std::function<void(void)> callback) {
   int delta_time = 0;
   int start_tick = SDL_GetTicks();
   int last_tick = 0;

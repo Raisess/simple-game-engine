@@ -36,6 +36,9 @@ class Window {
     void update() {
       this->draw_background();
     }
+    void quit() {
+      Core::Window::~Window();
+    }
 
   public:
     SDL_Window* sdl_window;
@@ -44,7 +47,6 @@ class Window {
     Window(const char* window_name, const int width, const int height);
 
     int get_fps();
-    void event_loop(const std::function<void(void)> callback);
     void set_backgroud_color(const int red, const int green, const int blue) {
       this->color = { red, green, blue };
     }
@@ -54,9 +56,7 @@ class Window {
     void set_size(const int width, const int heigth) {
       this->size = { width, heigth };
     }
-    void quit() {
-      Core::Window::~Window();
-    }
+    void loop(const std::function<void(void)> callback);
 };
 
 }

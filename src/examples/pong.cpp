@@ -29,7 +29,7 @@ int main() {
   bool to_right = true;
   bool to_down = true;
 
-  window->event_loop([&]() {
+  window->loop([&]() -> void {
     auto key_down = Core::Keyboard::key();
 
     auto left_player_pos = left_player->component->get_position();
