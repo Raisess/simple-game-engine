@@ -3,7 +3,7 @@
 
 #define FPS_LIMIT 30
 
-Engine::Window::Window(const char* window_name, const int width, const int height) {
+Core::Window::Window(const char* window_name, const int width, const int height) {
   this->is_active = true;
   this->set_size(width, height);
 
@@ -24,7 +24,7 @@ Engine::Window::Window(const char* window_name, const int width, const int heigh
   this->sdl_renderer = SDL_CreateRenderer(this->sdl_window, -1, SDL_RENDERER_ACCELERATED);
 }
 
-Engine::Window::~Window() {
+Core::Window::~Window() {
   this->is_active = false;
 
   SDL_DestroyRenderer(this->sdl_renderer);
@@ -32,20 +32,20 @@ Engine::Window::~Window() {
   SDL_Quit();
 }
 
-int Engine::Window::pool_event() {
+int Core::Window::pool_event() {
   return SDL_PollEvent(&this->current_event);
 }
 
-void Engine::Window::draw_background() {
+void Core::Window::draw_background() {
   SDL_SetRenderDrawColor(this->sdl_renderer, this->color.red, this->color.green, this->color.blue, 255);
   SDL_RenderDrawRect(this->sdl_renderer, NULL);
 }
 
-int Engine::Window::get_fps() {
+int Core::Window::get_fps() {
   return this->fps;
 }
 
-void Engine::Window::event_loop(const std::function<void(void)> callback) {
+void Core::Window::event_loop(const std::function<void(void)> callback) {
   int delta_time = 0;
   int start_tick = SDL_GetTicks();
   int last_tick = 0;

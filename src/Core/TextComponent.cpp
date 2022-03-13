@@ -3,7 +3,7 @@
 
 #define FONT_PATH "/usr/share/fonts/TTF/OpenSans-Bold.ttf"
 
-Engine::TextComponent::TextComponent(Window* window, const int x, const int y, const int width, const int height, const int font_size) {
+Core::TextComponent::TextComponent(Window* window, const int x, const int y, const int width, const int height, const int font_size) {
   this->active = true;
   this->window = window;
 
@@ -17,15 +17,15 @@ Engine::TextComponent::TextComponent(Window* window, const int x, const int y, c
   }
 }
 
-void Engine::TextComponent::init() {
+void Core::TextComponent::init() {
   TTF_Init();
 }
 
-void Engine::TextComponent::quit() {
+void Core::TextComponent::quit() {
   TTF_Quit();
 }
 
-Engine::TextComponent::~TextComponent() {
+Core::TextComponent::~TextComponent() {
   if (this->active) {
     this->active = false;
     SDL_FreeSurface(this->sdl_surface);
@@ -33,7 +33,7 @@ Engine::TextComponent::~TextComponent() {
   }
 }
 
-void Engine::TextComponent::draw_text() {
+void Core::TextComponent::draw_text() {
   if (this->active) {
     this->sdl_surface = TTF_RenderText_Solid(this->font, this->value.c_str(), this->color);
     this->sdl_texture = SDL_CreateTextureFromSurface(this->window->sdl_renderer, this->sdl_surface);

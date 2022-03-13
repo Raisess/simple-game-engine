@@ -4,7 +4,7 @@
 #include <SDL2/SDL_ttf.h>
 #include "Window.h"
 
-namespace Engine {
+namespace Core {
 
 class TextComponent {
   private:
@@ -54,7 +54,7 @@ class TextComponent {
       this->draw_text();
     }
     void destroy() {
-      Engine::TextComponent::~TextComponent();
+      Core::TextComponent::~TextComponent();
     }
 };
 

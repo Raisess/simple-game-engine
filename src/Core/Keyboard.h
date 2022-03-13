@@ -2,7 +2,7 @@
 
 #include <SDL2/SDL.h>
 
-namespace Engine {
+namespace Core {
 
 class Keyboard {
   public:

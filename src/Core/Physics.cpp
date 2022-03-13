@@ -2,7 +2,7 @@
 
 #define GRAVITY_FORCE 0.2F
 
-void Engine::Physics::apply_gravity(ScreenComponent* component) {
+void Core::Physics::apply_gravity(ScreenComponent* component) {
   if (component->is_active()) {
     Position component_position = component->get_position();
     Size component_size = component->get_size();
@@ -12,7 +12,7 @@ void Engine::Physics::apply_gravity(ScreenComponent* component) {
   }
 }
 
-bool Engine::Physics::is_colliding(ScreenComponent* x_component, ScreenComponent* y_component) {
+bool Core::Physics::is_colliding(ScreenComponent* x_component, ScreenComponent* y_component) {
   if (y_component->is_active()) {
     Position x_pos = x_component->get_position();
     Size x_size = x_component->get_size();
@@ -30,8 +30,8 @@ bool Engine::Physics::is_colliding(ScreenComponent* x_component, ScreenComponent
     int b_bottom = y_pos.y + y_size.height;
 
     return
-      Engine::Physics::overlapping(a_left, a_right, b_left, b_right) &&
-      Engine::Physics::overlapping(a_top, a_bottom, b_top, b_bottom);
+      Core::Physics::overlapping(a_left, a_right, b_left, b_right) &&
+      Core::Physics::overlapping(a_top, a_bottom, b_top, b_bottom);
   }
 
   return false;

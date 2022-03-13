@@ -3,7 +3,7 @@
 #include "AbsComponentManager.h"
 #include "../ScreenComponent.h"
 
-namespace Engine {
+namespace Core {
 namespace Managers {
 
 class ScreenComponentManager : public AbsComponentManager<ScreenComponent*, bool> {

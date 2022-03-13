@@ -1,40 +1,47 @@
+#include <iostream>
 #include "Player.h"
-#include "../Engine/Physics.h"
-#include "../Engine/Keyboard.h"
+#include "../Core/Physics.h"
+#include "../Core/Keyboard.h"
 
 #define PLAYER_SPEED 5
 
-Game::Player::Player(Engine::Managers::ScreenComponentManager* component_manager, PlayerOptions player_options) {
+Assets::Player::Player(Core::Managers::ScreenComponentManager* component_manager, PlayerOptions player_options) {
   this->component = component_manager->create_component(player_options.x, player_options.y, player_options.width, player_options.height, player_options.fill);
   this->component->set_color(255, 0, 0);
 }
 
-void Game::Player::move_up() {
+void Assets::Player::move_up() {
   Position position = this->component->get_position();
   this->component->set_position(position.x, position.y - (PLAYER_SPEED + 2));
 }
 
-void Game::Player::move_right() {
+void Assets::Player::move_right() {
   Position position = this->component->get_position();
   this->component->set_position(position.x + PLAYER_SPEED, position.y);
 }
 
-void Game::Player::move_down() {
+void Assets::Player::move_down() {
   Position position = this->component->get_position();
   this->component->set_position(position.x, position.y + PLAYER_SPEED);
 }
 
-void Game::Player::move_left() {
+void Assets::Player::move_left() {
   Position position = this->component->get_position();
   this->component->set_position(position.x - PLAYER_SPEED, position.y);
 }
 
-void Game::Player::apply_gravity() {
-  Engine::Physics::apply_gravity(this->component);
+void Assets::Player::apply_gravity() {
+  Core::Physics::apply_gravity(this->component);
+
+  auto pos = this->component->get_position();
+
+  if (pos.y >= 2000) {
+    this->component->set_position(pos.x - 10, 0);
+  }
 }
 
-void Game::Player::detect_keydown() {
-  auto key = Engine::Keyboard::key();
+void Assets::Player::detect_keydown() {
+  auto key = Core::Keyboard::key();
 
   if (key[SDL_SCANCODE_UP]) {
     this->move_up();
@@ -47,6 +54,6 @@ void Game::Player::detect_keydown() {
   }
 }
 
-bool Game::Player::is_colliding(Engine::ScreenComponent* colliding_component) {
-  return Engine::Physics::is_colliding(this->component, colliding_component);
+bool Assets::Player::is_colliding(Core::ScreenComponent* colliding_component) {
+  return Core::Physics::is_colliding(this->component, colliding_component);
 }

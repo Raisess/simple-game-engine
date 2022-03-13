@@ -3,7 +3,7 @@
 #include <vector>
 #include "../Window.h"
 
-namespace Engine {
+namespace Core {
 namespace Managers {
 
 template<typename T, typename OPT>

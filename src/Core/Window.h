@@ -19,7 +19,7 @@ typedef struct {
   int blue;
 } Color;
 
-namespace Engine {
+namespace Core {
 
 class Window {
   private:
@@ -55,7 +55,7 @@ class Window {
       this->size = { width, heigth };
     }
     void quit() {
-      Engine::Window::~Window();
+      Core::Window::~Window();
     }
 };
 

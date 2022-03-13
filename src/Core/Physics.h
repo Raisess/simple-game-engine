@@ -2,7 +2,7 @@
 
 #include "ScreenComponent.h"
 
-namespace Engine {
+namespace Core {
 
 class Physics {
   private:

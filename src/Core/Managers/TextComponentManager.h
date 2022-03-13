@@ -3,7 +3,7 @@
 #include "AbsComponentManager.h"
 #include "../TextComponent.h"
 
-namespace Engine {
+namespace Core {
 namespace Managers {
 
 class TextComponentManager : public AbsComponentManager<TextComponent*, const int> {

@@ -1,6 +1,6 @@
 #include "ScreenComponent.h"
 
-Engine::ScreenComponent::ScreenComponent(Window* window, const int x, const int y, const int width, const int height, bool fill) {
+Core::ScreenComponent::ScreenComponent(Window* window, const int x, const int y, const int width, const int height, bool fill) {
   this->active = true;
   this->window = window;
   this->fill = fill;
@@ -9,11 +9,11 @@ Engine::ScreenComponent::ScreenComponent(Window* window, const int x, const int 
   this->set_size(width, height);
 }
 
-Engine::ScreenComponent::~ScreenComponent() {
+Core::ScreenComponent::~ScreenComponent() {
   this->active = false;
 }
 
-void Engine::ScreenComponent::draw_rect() {
+void Core::ScreenComponent::draw_rect() {
   if (this->active) {
     SDL_Rect rect = {
       this->position.x,

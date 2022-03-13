@@ -2,7 +2,7 @@
 
 #include "Window.h"
 
-namespace Engine {
+namespace Core {
 
 class ScreenComponent {
   private:
@@ -53,7 +53,7 @@ class ScreenComponent {
       this->draw_rect();
     }
     void destroy() {
-      Engine::ScreenComponent::~ScreenComponent();
+      Core::ScreenComponent::~ScreenComponent();
     }
 };
 

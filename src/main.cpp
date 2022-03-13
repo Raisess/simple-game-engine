@@ -1,20 +1,20 @@
 #include <iostream>
 #include <vector>
-#include "Engine/Window.h"
-#include "Engine/Camera.h"
-#include "Engine/Managers/ScreenComponentManager.h"
-#include "Engine/Managers/TextComponentManager.h"
-#include "Game/Player.h"
-#include "Game/Platform.h"
+#include "Core/Window.h"
+#include "Core/Camera.h"
+#include "Core/Managers/ScreenComponentManager.h"
+#include "Core/Managers/TextComponentManager.h"
+#include "Assets/Player.h"
+#include "Assets/Platform.h"
 
 #define FILL_ALL true
 #define FILL_PLAYER FILL_ALL && true
 #define FILL_FLOOR FILL_ALL && true
 
 int main(int argc, char** argv) {
-  Engine::TextComponent::init();
+  Core::TextComponent::init();
 
-  auto* window = new Engine::Window("DwarfAttack", 800, 600);
+  auto* window = new Core::Window("Simple Game Engine", 800, 600);
   window->set_backgroud_color(0, 0, 255);
 
   auto window_size = window->get_size();
@@ -24,17 +24,17 @@ int main(int argc, char** argv) {
     1000,
   };
 
-  auto* text_component_manager = new Engine::Managers::TextComponentManager(window);
-  auto* screen_component_manager = new Engine::Managers::ScreenComponentManager(window);
+  auto* text_component_manager = new Core::Managers::TextComponentManager(window);
+  auto* screen_component_manager = new Core::Managers::ScreenComponentManager(window);
 
   auto* fps_text = text_component_manager->create_component(0, 0, 100, 30, 24);
   fps_text->set_color(255, 255, 0);
 
-  auto* player = new Game::Player(screen_component_manager, { middle_screen + 500, 0, 50, 50, FILL_PLAYER });
-  auto* enemy = new Game::Player(screen_component_manager, { middle_screen + 600, 0, 50, 50, FILL_PLAYER });
-  std::vector<Game::Player*> live_entities = { player, enemy };
+  auto* player = new Assets::Player(screen_component_manager, { middle_screen + 500, 0, 50, 50, FILL_PLAYER });
+  auto* enemy = new Assets::Player(screen_component_manager, { middle_screen + 600, 0, 50, 50, FILL_PLAYER });
+  std::vector<Assets::Player*> live_entities = { player, enemy };
 
-  auto platforms = Game::Platform::create_many(screen_component_manager, {
+  auto platforms = Assets::Platform::create_many(screen_component_manager, {
     { middle_screen, 440, 1000, 40, FILL_FLOOR },
     { middle_screen + 440, 300, 200, 40, FILL_FLOOR },
     { middle_screen + 250, 150, 200, 40, FILL_FLOOR },
@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
     fps_text_str.append(std::to_string(window->get_fps()));
     fps_text->set_value(fps_text_str);
 
-    Engine::Camera::set_camera_viewport(window, world_size, player->component);
+    Core::Camera::set_camera_viewport(window, world_size, player->component);
 
     player->detect_keydown();
 
@@ -78,6 +78,6 @@ int main(int argc, char** argv) {
   text_component_manager->destroy_components();
   screen_component_manager->destroy_components();
 
-  Engine::TextComponent::quit();
+  Core::TextComponent::quit();
   return 0;
 }

@@ -3,7 +3,7 @@
 #include "Window.h"
 #include "ScreenComponent.h"
 
-namespace Engine {
+namespace Core {
 
 class Camera {
   public:
