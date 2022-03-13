@@ -11,8 +11,7 @@ ENGINE_FILES=$(SRC_DIR)/Core/Window.cpp \
 						 $(SRC_DIR)/Core/Physics.cpp \
 						 $(SRC_DIR)/Core/Managers/ScreenComponentManager.cpp \
 						 $(SRC_DIR)/Core/Managers/TextComponentManager.cpp \
-						 $(SRC_DIR)/Assets/Object.cpp \
-						 $(SRC_DIR)/Assets/Platform.cpp
+						 $(SRC_DIR)/Assets/Object.cpp
 
 BUILD_DIR=./build
 

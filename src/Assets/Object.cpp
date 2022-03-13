@@ -5,7 +5,14 @@
 
 Assets::Object::Object(Core::Managers::ScreenComponentManager* component_manager, ObjectOptions player_options) {
   this->component = component_manager->create_component(player_options.x, player_options.y, player_options.width, player_options.height, player_options.fill);
-  this->component->set_color(255, 0, 0);
+}
+
+std::vector<Assets::Object*> Assets::Object::create_many(Core::Managers::ScreenComponentManager* component_manager, std::vector<ObjectOptions> object_options) {
+  std::vector<Object*> tmp;
+  for (ObjectOptions object_options : object_options) {
+    tmp.push_back(new Object(component_manager, object_options));
+  }
+  return tmp;
 }
 
 void Assets::Object::move_up(const int speed) {

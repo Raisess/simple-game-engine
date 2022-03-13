@@ -21,6 +21,7 @@ class Object {
 
     Object(Core::Managers::ScreenComponentManager* component_manager, ObjectOptions player_options);
 
+    static std::vector<Object*> create_many(Core::Managers::ScreenComponentManager* component_manager, std::vector<ObjectOptions> objects_options);
     void move_up(const int speed = PLAYER_SPEED);
     void move_right(const int speed = PLAYER_SPEED);
     void move_down(const int speed = PLAYER_SPEED);

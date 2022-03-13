@@ -6,13 +6,12 @@
 #include "../Core/Managers/ScreenComponentManager.h"
 #include "../Core/Managers/TextComponentManager.h"
 #include "../Assets/Object.h"
-#include "../Assets/Platform.h"
 
 #define FILL_ALL true
 #define FILL_PLAYER FILL_ALL && true
 #define FILL_FLOOR FILL_ALL && true
 
-int main(int argc, char** argv) {
+int main() {
   Core::TextComponent::init();
 
   auto* window = new Core::Window("Simple Game Engine", 800, 600);
@@ -32,16 +31,21 @@ int main(int argc, char** argv) {
   fps_text->set_color(255, 255, 0);
 
   auto* player = new Assets::Object(screen_component_manager, { middle_screen + 500, 0, 50, 50, FILL_PLAYER });
+  player->component->set_color(255, 0, 0);
   auto* enemy = new Assets::Object(screen_component_manager, { middle_screen + 600, 0, 50, 50, FILL_PLAYER });
+  enemy->component->set_color(255, 255, 0);
+
   std::vector<Assets::Object*> live_entities = { player, enemy };
 
-  auto platforms = Assets::Platform::create_many(screen_component_manager, {
+  auto platforms = Assets::Object::create_many(screen_component_manager, {
     { middle_screen, 440, 1000, 40, FILL_FLOOR },
     { middle_screen + 440, 300, 200, 40, FILL_FLOOR },
     { middle_screen + 250, 150, 200, 40, FILL_FLOOR },
   });
 
-  enemy->component->set_color(255, 255, 0);
+  for (auto platform : platforms) {
+    platform->component->set_color(0, 255, 0);
+  }
   
   const auto callback = [&]() -> void {
     std::string fps_text_str = "FPS: ";
